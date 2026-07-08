@@ -55,7 +55,6 @@ func Translate(lang string, messageID string, fallback string) string {
 		return fallback
 	}
 
-	// Kullanıcının dilini ve varsayılan dili sırayla dene
 	localizer := i18n.NewLocalizer(bundle, lang, defaultLang.String())
 
 	translated, err := localizer.Localize(&i18n.LocalizeConfig{
