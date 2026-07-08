@@ -1,9 +1,15 @@
 package response
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/motorcyclists-network/go-common/pkg/i18n"
+)
 
 func SendError(ctx *gin.Context, status int, apiErr APIError) {
 	apiErr.TraceID = ctx.GetString("X-Request-ID")
+
+	userLang := ctx.GetString(i18n.ContextKeyLanguage)
+	apiErr.Message = i18n.Translate(userLang, string(apiErr.Code), apiErr.Message)
 
 	ctx.JSON(status, ErrorResponse{
 		Error: apiErr,
