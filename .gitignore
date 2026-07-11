@@ -1,0 +1,13 @@
+# IDE
+.idea/
+.vscode/
+
+# Go
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
