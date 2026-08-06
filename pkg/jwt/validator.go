@@ -13,11 +13,13 @@ type TokenValidator interface {
 
 type tokenValidator struct {
 	secretKey []byte
+	issuer    string
 }
 
-func NewTokenValidator(secretKey string) TokenValidator {
+func NewTokenValidator(secretKey, issuer string) TokenValidator {
 	return &tokenValidator{
 		secretKey: []byte(secretKey),
+		issuer:    issuer,
 	}
 }
 
@@ -26,11 +28,15 @@ func (v *tokenValidator) ValidateToken(tokenString string) (*CustomClaims, error
 		tokenString,
 		&CustomClaims{},
 		func(token *jwt.Token) (interface{}, error) {
-			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			if token.Method != jwt.SigningMethodHS256 {
 				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 			}
 			return v.secretKey, nil
 		},
+		jwt.WithIssuer(v.issuer),
+		jwt.WithValidMethods([]string{jwt.SigningMethodHS256.Alg()}),
+		jwt.WithExpirationRequired(),
+		jwt.WithIssuedAt(),
 	)
 
 	if err != nil {
