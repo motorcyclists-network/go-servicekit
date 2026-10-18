@@ -2,7 +2,7 @@ package response
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/motorcyclists-network/go-common/pkg/i18n"
+	"github.com/motorcyclists-network/go-servicekit/pkg/i18n"
 )
 
 func SendError(ctx *gin.Context, status int, apiErr APIError) {

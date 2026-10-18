@@ -1,4 +1,4 @@
-module github.com/motorcyclists-network/go-common
+module github.com/motorcyclists-network/go-servicekit
 
 go 1.26.3
 

@@ -2,7 +2,7 @@ package jwt
 
 import (
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/motorcyclists-network/go-common/pkg/enum"
+	"github.com/motorcyclists-network/go-servicekit/pkg/enum"
 )
 
 type TokenType string
